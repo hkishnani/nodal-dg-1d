@@ -1,0 +1,1 @@
+python3 plot_csv.py --file plot_basis/GLL_basis_Nq_10.csv --x eta --y l_j_GLL --kind both --output l_j_n10.svg --group-by j --backend matplotlib --title Lagrange Basis function based on GLL nodes N_q=10 --xlabel '$\eta$' --ylabel '(\eta)$'
