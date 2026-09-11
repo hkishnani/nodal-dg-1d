@@ -6,6 +6,7 @@
 #include "quadrature.hpp"
 #include "basis.hpp"
 #include "file_handling.hpp"
+#include "local_matrix_assembly.hpp"
 
 // Problem specific
 constexpr double T0 = 0.0;
@@ -47,21 +48,6 @@ constexpr double U(const double x, const double t)
 int main()
 {
     std::cout << std::setprecision(15) << std::scientific;
-
-    // Compute Lagrange weights and its values at GLL roots for inspection for
-    // polynomial degree upto 2*N_max + 1
-    std::vector<size_t> Nq;
-    // const size_t N_max = *std::max_element(N_vector.begin(), N_vector.end());
-
-    // check for polynomial degree upto 2*N_max + 1 ==> Nq = N + 2
-    for (auto&& n : N_vector)
-        Nq.push_back(n + 2);
-    // 2Nq - 3 = 2N + 1 polynomial degree to be checked for quadrature
-
-
-    std::string post_process_folder =
-        "/home/himanshu/himanshu/nodal-dg-1d/test/";
-
 
 
     return 0;

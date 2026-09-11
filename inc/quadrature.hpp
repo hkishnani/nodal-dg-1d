@@ -5,8 +5,8 @@ Nq = Number of quadrature points in [-1.0, 1.0]
 Nq point rule is exact for any polynomial of degree [2*Nq - 3]
 evaluate exact quadrature for polynomial degree of 2*K + 1 = 2*Nq - 3
 */
-#ifndef QUADRATURE
-#define QUADRATURE
+#ifndef QUADRATURE_HPP
+#define QUADRATURE_HPP
 
 #include <cmath>
 #include <cstddef>
@@ -58,10 +58,18 @@ inline void legendre(size_t l, double zeta, double& P, double& dP, double& ddP)
     ddP = (2 * zeta * dP - l * (l + 1.0) * Pn) / (1 - zeta * zeta);
 }
 
-// ======Gauss-Lobatto-Legendre quadrature nodes======
-// N = polynomial degree to be approximated
-// Nq = Number of quadrature points in [-1.0, 1.0] atleast -1.0 and 1.0 are
-// included Nq point rule is exact for any polynomial of degree upto [2*Nq - 3]
+/**
+ * @brief Gauss-Lobatto-Legendre quadrature nodes
+ *
+ * @param Nq Number of quadrature points in [-1.0, 1.0]
+ * @param w quadrature weights
+ * @param zeta quadrature abscissae
+ *
+ * -1.0 & 1.0 always included
+ *
+ * Nq point rule ==> exact for polynomial of degree upto [2*Nq - 3]
+ * @return * void
+ */
 inline void compute_GLL_quadrature_weights_and_roots(const size_t Nq,
                                                      std::vector<double>& w,
                                                      std::vector<double>& zeta)
@@ -72,13 +80,20 @@ inline void compute_GLL_quadrature_weights_and_roots(const size_t Nq,
     constexpr double tol = 10.0 * epsilon;
     constexpr size_t max_iter = 200;
 
-    if (Nq < 2 || Nq > 18)
+    if (Nq < 1 || Nq > 18)
         throw std::invalid_argument(
             "QUADRATURE::compute_GLL_quadrature_weights_and_"
-            "roots::Nq must satisfy 2 <= Nq <= 18");
+            "roots::Nq must satisfy 1 <= Nq <= 18");
 
     w.resize(Nq);
     zeta.resize(Nq);
+
+    if (Nq == 1)
+    {
+        w[0] = 2.0;
+        zeta[0] = 0.0;
+        return;
+    }
 
     zeta[0] = -1.0;
     zeta[Nq - 1] = 1.0;
@@ -143,7 +158,7 @@ inline void compute_GLL_quadrature_weights_and_roots(const size_t Nq,
     }
 
     // mid value must be zero
-    if(Nq % 2 != 0)
+    if (Nq % 2 != 0)
         zeta[Nq / 2] = 0.0;
 }
 
@@ -232,11 +247,11 @@ inline void compute_GL_quadrature_weights_and_roots(const size_t Nq,
         const double W = 0.5 * (w[i] + w[j]);
         w[i] = W;
         w[j] = W;
-    }    
+    }
     // mid value must be zero
-    if(Nq % 2 != 0)
+    if (Nq % 2 != 0)
         zeta[Nq / 2] = 0.0;
 }
 
-#endif // !QUADRATURE
+#endif // !QUADRATURE_HPP
 // verified on Aug 19 for N upto 17

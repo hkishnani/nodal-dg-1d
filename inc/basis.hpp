@@ -37,16 +37,17 @@ inline void linspace_eta_vector(const double x0,
     }
 
     for (size_t i = 0; i < N; ++i)
-        eta[i] =
-            x0 + (xL - x0) * static_cast<double>(i) / static_cast<double>(N - 1);
+        eta[i] = x0 + (xL - x0) * static_cast<double>(i) /
+                          static_cast<double>(N - 1);
 }
 
 //===========reference cell calculations============
 // define nodal basis functions evaluation zeta in [-1.0, 1.0]
 // Barycentric Lagrange form [C.Praveen notes Appendix-B]
 // Evaluation of weights on zeta[n] --> test once
-inline void compute_weights(const std::vector<double>& ZETA,
-                            std::vector<double>& w)
+inline void compute_weights_for_barycentric_lagrange_polynomial(
+    const std::vector<double>& ZETA,
+    std::vector<double>& w)
 {
     // 0 <= j <= (n-1)
     double t = 0.0;
@@ -69,6 +70,7 @@ inline void compute_weights(const std::vector<double>& ZETA,
 
 // FOR LAGRANGE POLYNOMIAL OF DEGREE n-1 => p(eta) = sum[j=0 to n-1] l_j(eta) *
 // f_j l_j(eta) = ( l(eta) * w_j ) / (eta - zeta_j)
+// w = Barycentric weights, ZETA = Barycentric abscissae
 inline double l_j(const size_t j,
                   const size_t n,
                   const std::vector<double>& ZETA,
@@ -82,7 +84,7 @@ inline double l_j(const size_t j,
 
     // evaluation at an arbitrary point
     double l_eta = 1.0;
-    for (size_t i = 0; i < n; ++i)
+    for (size_t i = 0; i <= n; ++i)
         if (i != j)
             l_eta *= (eta - ZETA[i]);
 

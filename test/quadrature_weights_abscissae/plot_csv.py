@@ -17,14 +17,21 @@ def resolve_column(df: pd.DataFrame, col_arg: str) -> str:
         pass
     raise ValueError(f"Column '{col_arg}' not found in CSV. Available columns: {list(df.columns)}")
 
-def plot_matplotlib(df, x_col, y_col, group_col, kind, out_path, title, xlabel, ylabel):
+def format_decimal(val) -> str:
+    """Format numeric values as normal decimal notation with up to 5 decimal places."""
+    try:
+        return f"{float(val):.5f}"
+    except (ValueError, TypeError):
+        return str(val)
+
+def plot_matplotlib(df, x_col, y_col, group_col, out_path, title, xlabel, ylabel):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     # Presentation/PPT Styling Defaults
     plt.rcParams.update({
-        "mathtext.fontset": "cm",  # Computer Modern font for LaTeX math
+        "mathtext.fontset": "cm",
         "font.size": 12,
         "axes.labelsize": 14,
         "axes.titlesize": 16,
@@ -36,37 +43,55 @@ def plot_matplotlib(df, x_col, y_col, group_col, kind, out_path, title, xlabel, 
 
     fig, ax = plt.subplots(figsize=(10, 6), dpi=300)
 
-    show_lines = kind in ["line", "both"]
-    marker = "o" if kind in ["scatter", "both"] else None
-    linestyle = "-" if show_lines else "None"
+    def annotate_points(sub_df):
+        """Helper to annotate decimal coordinates near each bar top."""
+        for x, y in zip(sub_df[x_col], sub_df[y_col]):
+            if pd.notnull(x) and pd.notnull(y):
+                x_str = format_decimal(x)
+                y_str = format_decimal(y)
+                
+                ax.annotate(
+                    f"({x_str}, {y_str})",
+                    (x, y),
+                    xytext=(5, 5),
+                    textcoords="offset points",
+                    ha="left",
+                    va="bottom",
+                    fontsize=8,
+                    alpha=0.8,
+                    zorder=3
+                )
 
     if group_col:
         groups = df.groupby(group_col, sort=False)
         for val, group in groups:
             group_sorted = group.sort_values(by=x_col)
             label = f"{group_col} = {val}"
-            ax.plot(
+            # Render as bar graph
+            ax.bar(
                 group_sorted[x_col],
                 group_sorted[y_col],
+                width=0.015,
                 label=label,
-                linestyle=linestyle,
-                marker=marker,
-                linewidth=2.5 if show_lines else 0,
-                markersize=6.0,
+                alpha=0.7,
+                edgecolor="black",
                 zorder=2
             )
+            annotate_points(group_sorted)
     else:
         df_sorted = df.sort_values(by=x_col)
-        ax.plot(
+        # Render as bar graph
+        ax.bar(
             df_sorted[x_col],
             df_sorted[y_col],
+            width=0.015,
             label=ylabel or y_col,
-            linestyle=linestyle,
-            marker=marker,
-            linewidth=2.5 if show_lines else 0,
-            markersize=6.0,
+            alpha=0.8,
+            color="royalblue",
+            edgecolor="black",
             zorder=2
         )
+        annotate_points(df_sorted)
 
     clean_x = xlabel if xlabel else x_col
     clean_y = ylabel if ylabel else y_col
@@ -76,23 +101,19 @@ def plot_matplotlib(df, x_col, y_col, group_col, kind, out_path, title, xlabel, 
     ax.set_xlabel(clean_x, fontweight="bold")
     ax.set_ylabel(clean_y, fontweight="bold")
     ax.set_title(clean_title, pad=12, fontweight="bold")
+    
+    # Fix X-axis limits to [-1.0, 1.0] (padded slightly so bars don't clip at the edges)
+    ax.set_xlim(-1.05, 1.05)
 
-    ax.grid(True, linestyle="--", alpha=0.6, linewidth=0.8)
-    # Fixed facealpha -> framealpha
+    ax.grid(True, linestyle="--", alpha=0.6, linewidth=0.8, zorder=0)
     ax.legend(bbox_to_anchor=(1.02, 1), loc="upper left", frameon=True, framealpha=0.95)
 
     fig.tight_layout()
     fig.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-def plot_plotly(df, x_col, y_col, group_col, kind, out_path, title, xlabel, ylabel):
+def plot_plotly(df, x_col, y_col, group_col, out_path, title, xlabel, ylabel):
     import plotly.express as px
-
-    mode_map = {
-        "line": "lines",
-        "scatter": "markers",
-        "both": "lines+markers"
-    }
 
     if group_col:
         df_sorted = df.sort_values(by=[group_col, x_col])
@@ -103,16 +124,30 @@ def plot_plotly(df, x_col, y_col, group_col, kind, out_path, title, xlabel, ylab
     clean_y = ylabel if ylabel else y_col
     final_title = title if title else (f"{clean_y} vs {clean_x}" + (f" (grouped by {group_col})" if group_col else ""))
 
-    if kind == "scatter" and not group_col:
-        fig = px.scatter(df_sorted, x=x_col, y=y_col, title=final_title)
-    elif kind == "scatter" and group_col:
-        fig = px.scatter(df_sorted, x=x_col, y=y_col, color=group_col, title=final_title)
-    elif group_col:
-        fig = px.line(df_sorted, x=x_col, y=y_col, color=group_col, title=final_title)
-        fig.update_traces(mode=mode_map[kind])
+    # Render as bar graph using px.bar
+    if group_col:
+        fig = px.bar(df_sorted, x=x_col, y=y_col, color=group_col, barmode="group", title=final_title)
     else:
-        fig = px.line(df_sorted, x=x_col, y=y_col, title=final_title)
-        fig.update_traces(mode=mode_map[kind])
+        fig = px.bar(df_sorted, x=x_col, y=y_col, title=final_title)
+
+    # Add annotations for coordinates
+    for _, row in df_sorted.iterrows():
+        x, y = row[x_col], row[y_col]
+        if pd.notnull(x) and pd.notnull(y):
+            x_str = format_decimal(x)
+            y_str = format_decimal(y)
+            
+            fig.add_annotation(
+                x=x,
+                y=y,
+                text=f"({x_str}, {y_str})",
+                showarrow=False,
+                xanchor="left",
+                yanchor="bottom",
+                xshift=5,
+                yshift=5,
+                font=dict(size=10, color="gray")
+            )
 
     fig.update_layout(
         template="plotly_white",
@@ -120,15 +155,16 @@ def plot_plotly(df, x_col, y_col, group_col, kind, out_path, title, xlabel, ylab
         title=dict(font=dict(size=20, color="black")),
         xaxis=dict(
             title=dict(text=clean_x, font=dict(size=16, color="black")),
-            showgrid=True, gridwidth=1, gridcolor="LightGray"
+            showgrid=True, gridwidth=1, gridcolor="LightGray",
+            type="linear", # Enforces proper spacing for precise abscissae coordinates
+            range=[-1.05, 1.05] # Lock X-axis bounds
         ),
         yaxis=dict(
             title=dict(text=clean_y, font=dict(size=16, color="black")),
             showgrid=True, gridwidth=1, gridcolor="LightGray"
-        )
+        ),
+        bargap=0.85 # Makes bars thin to reflect specific coordinate locations clearly
     )
-    
-    fig.update_traces(line=dict(width=3), marker=dict(size=8))
 
     html_out = out_path.with_suffix(".html")
     fig.write_html(str(html_out), include_mathjax="cdn")
@@ -136,21 +172,15 @@ def plot_plotly(df, x_col, y_col, group_col, kind, out_path, title, xlabel, ylab
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Plot X vs Y from any CSV file with presentation styling and TeX math rendering."
+        description="Plot X vs Y bar graphs from a CSV file with presentation styling."
     )
     parser.add_argument("--file", "-f", type=str, required=True, help="Path to input CSV file.")
-    parser.add_argument("--x", type=str, required=True, help="Column name or index for X-axis.")
-    parser.add_argument("--y", type=str, required=True, help="Column name or index for Y-axis.")
+    parser.add_argument("--x", type=str, required=True, help="Column name or index for X-axis (Abscissae).")
+    parser.add_argument("--y", type=str, required=True, help="Column name or index for Y-axis (Weights).")
     parser.add_argument("--group-by", "-g", type=str, default=None, help="Column name or index for group legends.")
     parser.add_argument("--title", type=str, default=None, help="Custom figure title.")
     parser.add_argument("--xlabel", type=str, default=None, help="Custom X-axis label.")
     parser.add_argument("--ylabel", type=str, default=None, help="Custom Y-axis label.")
-    parser.add_argument(
-        "--kind", "-k",
-        choices=["line", "scatter", "both"],
-        default="line",
-        help="Plot style: 'line', 'scatter', or 'both' (default: line)."
-    )
     parser.add_argument(
         "--backend", "-b",
         choices=["matplotlib", "plotly"],
@@ -189,11 +219,11 @@ def main():
     group_col = resolve_column(df, args.group_by) if args.group_by is not None else None
 
     if args.backend == "matplotlib":
-        plot_matplotlib(df, x_col, y_col, group_col, args.kind, out_path, args.title, args.xlabel, args.ylabel)
-        print(f"Successfully saved Matplotlib presentation plot -> {out_path}")
+        plot_matplotlib(df, x_col, y_col, group_col, out_path, args.title, args.xlabel, args.ylabel)
+        print(f"Successfully saved Matplotlib presentation plot -> {out_path}", flush=True)
     else:
-        final_out = plot_plotly(df, x_col, y_col, group_col, args.kind, out_path, args.title, args.xlabel, args.ylabel)
-        print(f"Successfully saved Plotly interactive HTML -> {final_out}")
+        final_out = plot_plotly(df, x_col, y_col, group_col, out_path, args.title, args.xlabel, args.ylabel)
+        print(f"Successfully saved Plotly interactive HTML -> {final_out}", flush=True)
 
 if __name__ == "__main__":
     main()

@@ -60,10 +60,10 @@ inline void read_csv(const std::string& filename,
 }
 
 inline void write_line_to_file(const std::string& filename,
-                              const std::string& line)
+                               const std::string& line)
 {
     std::ofstream file(filename, std::ios::app);
-    if(!file.is_open())
+    if (!file.is_open())
         throw std::runtime_error("failed to open file: " + filename);
 
     file << line << "\n";
@@ -80,5 +80,27 @@ inline void print_csv(const std::string& filename)
     std::cout << "x,u\n";
     for (size_t i = 0; i < x.size(); ++i)
         std::cout << x[i] << "," << u[i] << "\n";
+}
+
+// written in a 1D vector in row dominant format
+inline void write_double_precision_matrix_to_csv(const std::string& filename,
+                                                 const std::vector<double>& A,
+                                                 const size_t N_rows,
+                                                 const size_t M_cols)
+{
+    std::ofstream file(filename);
+    if (!file.is_open())
+        throw std::runtime_error("failed to open file: " + filename);
+
+    for (size_t n = 0; n < N_rows; n++)
+    {
+        for (size_t m = 0; m < M_cols; m++)
+        {
+            file << A[n * M_cols + m];
+            if (m != M_cols - 1)
+                file << ",";
+        }
+        file << "\n";
+    }
 }
 #endif // FILE_HANDLING_HPP
