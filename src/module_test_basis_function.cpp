@@ -1,21 +1,5 @@
 // module_test_basis_function.cpp
 
-/**
- * @file module_test_basis_function.cpp
- * @author himanshu kishnani (himanshukish@iisc.ac.in)
- *
- * @brief compute GL and GLL quadrature weights and roots for Nq_i quadrature
- * points assume Nq_i is the number of solution points available we need to find
- * integration for entries of Mass matrix of degree 2*N integration must be
- * exact for polynomial of degree 2*N + 1
- *
- * @version 1.0
- * @date 2026-09-05
- *
- * @copyright Copyright (c) 2026
- *
- */
-
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -103,3 +87,19 @@ int main()
 
     return 0;
 }
+
+/**
+ * @file module_test_basis_function.cpp
+ * @author himanshu kishnani (himanshukish@iisc.ac.in)
+ *
+ * @brief compute GL and GLL quadrature weights and roots for Nq_i quadrature
+ * points assume Nq_i is the number of solution points available we need to find
+ * integration for entries of Mass matrix of degree 2*N integration must be
+ * exact for polynomial of degree 2*N + 1
+ *
+ * @version 1.0
+ * @date 2026-09-05
+ *
+ * @copyright Copyright (c) 2026
+ *
+ */

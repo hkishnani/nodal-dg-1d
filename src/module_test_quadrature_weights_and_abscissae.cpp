@@ -1,4 +1,4 @@
-// module_tests.cpp
+// module_tests_quadrature_weights_and_abscissae.cpp
 
 /**
  * ======compute GL and GLL quadrature weights and roots for Nq_i=======

@@ -68,8 +68,9 @@ inline void compute_weights_for_barycentric_lagrange_polynomial(
         w[i] = 1.0 / w[i];
 } // verification done Aug 19 2026
 
-// FOR LAGRANGE POLYNOMIAL OF DEGREE n-1 => p(eta) = sum[j=0 to n-1] l_j(eta) *
-// f_j l_j(eta) = ( l(eta) * w_j ) / (eta - zeta_j)
+// FOR LAGRANGE POLYNOMIAL OF DEGREE n-1 => 
+// p(eta) = sum[j=0 to n] l_j(eta) * f_j
+// l_j(eta) = ( l(eta) * w_j ) / (eta - zeta_j)
 // w = Barycentric weights, ZETA = Barycentric abscissae
 inline double l_j(const size_t j,
                   const size_t n,

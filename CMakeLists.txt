@@ -18,3 +18,7 @@ add_executable(module_test_mass_matrix src/module_test_mass_matrix.cpp)
 add_executable(module_test_quadrature_weights_and_abscissae src/module_test_quadrature_weights_and_abscissae.cpp)
 
 add_executable(module_test_basis_function src/module_test_basis_function.cpp)
+
+add_executable(module_test_vandermonde_matrix src/module_test_vandermonde_matrix.cpp)
+
+add_executable(module_test_Rmq_matrix src/module_test_Rmq_matrix.cpp)
