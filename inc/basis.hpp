@@ -68,7 +68,7 @@ inline void compute_weights_for_barycentric_lagrange_polynomial(
         w[i] = 1.0 / w[i];
 } // verification done Aug 19 2026
 
-// FOR LAGRANGE POLYNOMIAL OF DEGREE n-1 => 
+// FOR LAGRANGE POLYNOMIAL OF DEGREE n-1 =>
 // p(eta) = sum[j=0 to n] l_j(eta) * f_j
 // l_j(eta) = ( l(eta) * w_j ) / (eta - zeta_j)
 // w = Barycentric weights, ZETA = Barycentric abscissae
@@ -119,41 +119,46 @@ evaluate_interpolated_function_value(const size_t N,
     return num / den;
 }
 
-// dim(p_prime(eta)) = N
-inline double evaluate_interpolated_function_derivative_at_given_node(
-    const size_t N,
-    const std::vector<double>& ZETA,
-    const std::vector<double>& w,
-    const std::vector<double>& f,
-    const double eta)
+// at zeta_i
+inline double l_j_prime_at_zeta_i(const size_t j,
+                                  const size_t i,
+                                  const size_t Nq,
+                                  const std::vector<double>& ZETA,
+                                  const std::vector<double>& w)
 {
+    //  if(i != j)
+    //      return (w[j] / w[i]) / (ZETA[i] - ZETA[j]);
+
+    if (i == j)
+    {
+        double t = 0.0;
+        for (size_t k = 0; k < Nq; k++)
+            if (k != i)
+                t -= (w[k] / w[i]) / (ZETA[i] - ZETA[k]);
+
+        return t;
+    }
+
+    return (w[j] / w[i]) / (ZETA[i] - ZETA[j]);
+}
+
+// dim(p_prime(eta)) = N + 1
+// ZETA[i] is known
+inline double evaluate_interpolated_function_derivative_at_given_node(
+    const size_t i,
+    const std::vector<double>& ZETA_barycentric,
+    const std::vector<double>& w_barycentric,
+    const std::vector<double>& f)
+{
+    const size_t Nq = ZETA_barycentric.size();
+    std::vector<double> lj_prime(Nq);
+    for (size_t j = 0; j < Nq; j++)
+        lj_prime[j] =
+            l_j_prime_at_zeta_i(j, i, Nq, ZETA_barycentric, w_barycentric);
+
     double t = 0.0;
-    size_t j = N;
-    const double eps = std::numeric_limits<double>::epsilon();
-
-    std::vector<double> l_prime(N + 1);
-    for (size_t i = 0; i <= N; i++)
-    {
-        l_prime[i] = 0.0;
-
-        if (fabs(eta - ZETA[i]) < eps)
-            j = i;
-    }
-
-    for (size_t i = 0; i <= N; ++i)
-    {
-        if (j != i)
-        {
-            l_prime[i] = (w[i] / w[j]) / (ZETA[j] - ZETA[i]);
-            t += l_prime[i];
-        }
-    }
-
-    l_prime[j] = -t;
-
-    t = 0.0;
-    for (size_t i = 0; i <= N; ++i)
-        t += l_prime[i] * f[i];
+    for (size_t j = 0; j < Nq; ++j)
+        t += lj_prime[j] * f[j];
 
     return t;
 }
@@ -171,7 +176,7 @@ evaluate_interpolated_function_derivative(const size_t N,
     for (size_t j = 0; j <= N; ++j)
         if (fabs(eta - ZETA[j]) < eps)
             return evaluate_interpolated_function_derivative_at_given_node(
-                N, ZETA, w, f, eta);
+                j, ZETA, w, f);
 
     double num = 0.0, den = 0.0, t = 0.0, p_eta = 0.0;
     p_eta = evaluate_interpolated_function_value(N, ZETA, w, f, eta);

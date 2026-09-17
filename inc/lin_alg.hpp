@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <stdexcept>
-#include <iostream>
+// #include <iostream>
 
 // Matrix-Vector Product-> A [m rows n columns] x[n rows 1 column]
 // always write as flattened matrix -->

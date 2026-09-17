@@ -3,10 +3,10 @@
 #define LOCAL_MATRIX_ASSEMBLY_HPP
 
 #include <cmath>
-#include <compare>
+// #include <compare>
 #include <string>
 #include <vector>
-#include <limits>
+// #include <limits>
 #include "basis.hpp"
 #include "quadrature.hpp"
 
@@ -82,12 +82,12 @@ inline void LOCAL_MASS_MATRIX(std::vector<double>& M,
         }
 }
 
-// Vandermonde matrix   --> Nq x (N+1)
-void LOCAL_Vqj_MATRIX(std::vector<double>& V,
-                      const size_t Nq,
-                      const size_t N,
-                      const std::string& basis,
-                      const std::string& quadrature)
+// Vandermonde matrix   --> [ Nq x (N + 1) ]
+inline void LOCAL_Vqj_MATRIX(std::vector<double>& V,
+                             const size_t Nq,
+                             const size_t N,
+                             const std::string& basis,
+                             const std::string& quadrature)
 {
     std::vector<double> w_barycentric, zeta_barycentric;
     std::vector<double> w_quadrature, zeta_quadrature;
@@ -129,13 +129,49 @@ void LOCAL_Vqj_MATRIX(std::vector<double>& V,
                                              zeta_quadrature[q_row]);
 }
 
-// R_{mq} = w_q * Ψ̂_m (ζ_q);    0<=m<=N  0<=q<=Nq
-// R_{mq} = matmul(V_{qj}^T , w_q)    [w_j = column vector of weights]
-inline void LOCAL_Rmq_MATRIX(std::vector<double>& R,
-                             const size_t N,
+// Differentiation Matrix Dqj = Ψ̂'j (ζ𝑞)    [ Nq x (N + 1) ]
+inline void LOCAL_Dqj_MATRIX(std::vector<double>& D,
                              const size_t Nq,
+                             const size_t N,
                              const std::string& basis,
                              const std::string& quadrature)
+{
+    std::vector<double> w_barycentric, zeta_barycentric;
+    std::vector<double> w_quadrature, zeta_quadrature;
+    
+    if (basis == "GL")
+        compute_GL_quadrature_weights_and_roots(N + 1, w_barycentric, zeta_barycentric);
+    if (basis == "GLL")
+        compute_GLL_quadrature_weights_and_roots(N + 1, w_barycentric, zeta_barycentric);
+    if (quadrature == "GL")
+        compute_GL_quadrature_weights_and_roots(Nq, w_quadrature, zeta_quadrature);
+    if (quadrature == "GLL")
+        compute_GLL_quadrature_weights_and_roots(Nq, w_quadrature, zeta_quadrature);
+
+    w_barycentric.clear();
+    compute_weights_for_barycentric_lagrange_polynomial(zeta_barycentric, w_barycentric);
+
+    // 0 <= q < Nq ==> Nq terms for quadrature index
+    // 0 <= j <= N ==> N + 1 terms for test function index
+
+    D.resize(Nq * (N + 1)); // Nq x (N + 1)
+
+    for (size_t q_row = 0; q_row < Nq; q_row++)
+        for (size_t j_col = 0; j_col <= N; j_col++)
+            D[q_row * (N + 1) + j_col] = 0.0;
+
+    for (size_t q_row = 0; q_row < Nq; q_row++)
+        for (size_t j_col = 0; j_col <= N; j_col++)
+            D[q_row * (N + 1) + j_col] = ;
+}
+
+    // R_{mq} = w_q * Ψ̂_m (ζ_q);    0<=m<=N  0<=q<=Nq
+    // R_{mq} = matmul(V_{qj}^T , w_q)    [w_j = column vector of weights]
+    inline void LOCAL_Rmq_MATRIX(std::vector<double>& R,
+                                 const size_t N,
+                                 const size_t Nq,
+                                 const std::string& basis,
+                                 const std::string& quadrature)
 {
     std::vector<double> w_barycentric, zeta_barycentric;
     std::vector<double> w_quadrature, zeta_quadrature;
