@@ -4,8 +4,6 @@
 #include <cmath>
 #include <string>
 #include <vector>
-#include "quadrature.hpp"
-#include "basis.hpp"
 #include "file_handling.hpp"
 #include "local_matrix_assembly.hpp"
 
@@ -25,32 +23,22 @@ int main()
     std::string vqj_matrix_file_name;
 
     //=========================
-    // degree of polynomial basis function
     for (auto&& N : N_vector)
-    {
-        // Nq cols pts for Rmq entries
-        for (auto&& Nq: {N + 1, N + 2})
-        {
-            // Lagrange basis functions are defined on GLL or GL point
+        for (auto&& Nq : {N + 1, N + 2})
             for (auto&& basis : {"GLL", "GL"})
-            {
-                // quadrature rule for integration of Rmq matrix entries
                 for (auto&& quadrature : {"GLL", "GL"})
                 {
-                    vqj_matrix_file_name =
-                        Vqj_MATRIX_FOLDER + "Vqj_matrix_N_" +
-                        std::to_string(N) + "_Nq_" + std::to_string(Nq) +
-                        "_basis_" + basis + "_quadrature_" + quadrature +
-                        ".csv";
+                    vqj_matrix_file_name = Vqj_MATRIX_FOLDER + "Vqj_matrix_N_" +
+                                           std::to_string(N) + "_Nq_" +
+                                           std::to_string(Nq) + "_basis_" +
+                                           basis + "_quadrature_" + quadrature +
+                                           ".csv";
 
                     LOCAL_Vqj_MATRIX(V, Nq, N, basis, quadrature);
 
                     write_double_precision_matrix_to_csv(
                         vqj_matrix_file_name, V, Nq, N + 1);
                 }
-            }
-        }
-    }
     //=========================
     return 0;
 }

@@ -73,26 +73,98 @@ inline void compute_weights_for_barycentric_lagrange_polynomial(
 // l_j(eta) = ( l(eta) * w_j ) / (eta - zeta_j)
 // w = Barycentric weights, ZETA = Barycentric abscissae
 inline double l_j(const size_t j,
-                  const size_t n,
-                  const std::vector<double>& ZETA,
-                  const std::vector<double>& w,
+                  const std::vector<double>& ZETA_barycentric,
+                  const std::vector<double>& w_barycentric,
                   const double eta)
 {
     const double eps = std::numeric_limits<double>::epsilon();
     // evaluation at nodal point = 1.0
-    if (fabs(eta - ZETA[j]) < eps)
+    if (fabs(eta - ZETA_barycentric[j]) < eps)
         return 1.0;
 
+    size_t N = ZETA_barycentric.size() - 1;
     // evaluation at an arbitrary point
     double l_eta = 1.0;
-    for (size_t i = 0; i <= n; ++i)
+    for (size_t i = 0; i <= N; ++i)
         if (i != j)
-            l_eta *= (eta - ZETA[i]);
+            l_eta *= (eta - ZETA_barycentric[i]);
 
-    return (w[j] * l_eta);
+    return (w_barycentric[j] * l_eta);
 }
 // verified Aug 20 2026
 
+// at zeta_i
+inline double l_j_prime_at_zeta_i(const size_t j,
+                                  const size_t i,
+                                  const std::vector<double>& ZETA_barycentric,
+                                  const std::vector<double>& w_barycentric)
+{
+    size_t N = ZETA_barycentric.size() - 1;
+    //  if(i != j)
+    //      return (w[j] / w[i]) / (ZETA[i] - ZETA[j]);
+
+    if (i == j)
+    {
+        double t = 0.0;
+        for (size_t k = 0; k <= N; k++)
+            if (k != i)
+                t -= (w_barycentric[k] / w_barycentric[i]) /
+                     (ZETA_barycentric[i] - ZETA_barycentric[k]);
+
+        return t;
+    }
+
+    return (w_barycentric[j] / w_barycentric[i]) /
+           (ZETA_barycentric[i] - ZETA_barycentric[j]);
+}
+
+// computing l_prime on arbitrary zeta value
+inline double l_prime(const std::vector<double>& ZETA_barycentric,
+                      const double eta)
+{
+    double val = 0.0;
+    size_t N = ZETA_barycentric.size() - 1;
+
+    for (size_t m = 0; m <= N; m++)
+    {
+        double val_k = 1.0;
+
+        for (size_t k = 0; k <= N; k++)
+            if (m != k)
+                val_k = val_k * (eta - ZETA_barycentric[k]);
+
+        val += val_k;
+    }
+
+    return val;
+}
+
+// generic call --> diverts to l_j_prime_at_zeta_i if eta == zeta
+inline double l_j_prime(const size_t j,
+                        const std::vector<double>& ZETA_barycentric,
+                        const std::vector<double>& w_barycentric,
+                        const double eta)
+{
+    const double eps = std::numeric_limits<double>::epsilon();
+
+    size_t N = ZETA_barycentric.size() - 1;
+
+    // if eta is one of the Barycentric coordinate
+    for (size_t i = 0; i <= N; i++)
+        if (fabs(eta - ZETA_barycentric[i]) < eps)
+            return l_j_prime_at_zeta_i(
+                j, i, ZETA_barycentric, w_barycentric);
+
+    double l_prime_val = l_prime(ZETA_barycentric, eta);
+
+    double l_j_val = l_j(j, ZETA_barycentric, w_barycentric, eta);
+
+    double val = (w_barycentric[j] * l_prime_val - l_j_val) / (eta - ZETA_barycentric[j]);
+
+    return val;
+}
+
+// ==========================================================
 // eval. Barycentric Lagrange interpolated function p(eta) from f:[-1, +1] -> R
 // N = dim(p(eta))
 inline double
@@ -119,29 +191,6 @@ evaluate_interpolated_function_value(const size_t N,
     return num / den;
 }
 
-// at zeta_i
-inline double l_j_prime_at_zeta_i(const size_t j,
-                                  const size_t i,
-                                  const size_t Nq,
-                                  const std::vector<double>& ZETA,
-                                  const std::vector<double>& w)
-{
-    //  if(i != j)
-    //      return (w[j] / w[i]) / (ZETA[i] - ZETA[j]);
-
-    if (i == j)
-    {
-        double t = 0.0;
-        for (size_t k = 0; k < Nq; k++)
-            if (k != i)
-                t -= (w[k] / w[i]) / (ZETA[i] - ZETA[k]);
-
-        return t;
-    }
-
-    return (w[j] / w[i]) / (ZETA[i] - ZETA[j]);
-}
-
 // dim(p_prime(eta)) = N + 1
 // ZETA[i] is known
 inline double evaluate_interpolated_function_derivative_at_given_node(
@@ -154,7 +203,7 @@ inline double evaluate_interpolated_function_derivative_at_given_node(
     std::vector<double> lj_prime(Nq);
     for (size_t j = 0; j < Nq; j++)
         lj_prime[j] =
-            l_j_prime_at_zeta_i(j, i, Nq, ZETA_barycentric, w_barycentric);
+            l_j_prime_at_zeta_i(j, i, ZETA_barycentric, w_barycentric);
 
     double t = 0.0;
     for (size_t j = 0; j < Nq; ++j)

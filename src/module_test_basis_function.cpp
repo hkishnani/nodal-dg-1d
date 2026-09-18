@@ -66,8 +66,8 @@ int main()
         for (size_t j = 0; j < Nq_i; ++j)
             for (double eta : eta_vector)
             {
-                l_j_value_GL = l_j(j, Nq_i - 1, zeta_GL, w_Lagrange_GL, eta);
-                l_j_value_GLL = l_j(j, Nq_i - 1, zeta_GLL, w_Lagrange_GLL, eta);
+                l_j_value_GL = l_j(j, zeta_GL, w_Lagrange_GL, eta);
+                l_j_value_GLL = l_j(j, zeta_GLL, w_Lagrange_GLL, eta);
 
                 write_line_to_file(GL_filename,
                                    std::to_string(Nq_i) + "," +

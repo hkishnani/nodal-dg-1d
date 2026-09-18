@@ -75,8 +75,8 @@ inline void LOCAL_MASS_MATRIX(std::vector<double>& M,
             {
                 double zeta_q = zeta_quadrature[q];
                 val += w_quadrature[q] *
-                       l_j(l, N, zeta_barycentric, w_barycentric, zeta_q) *
-                       l_j(m, N, zeta_barycentric, w_barycentric, zeta_q);
+                       l_j(l, zeta_barycentric, w_barycentric, zeta_q) *
+                       l_j(m, zeta_barycentric, w_barycentric, zeta_q);
             }
             M[m * (N + 1) + l] = val;
         }
@@ -122,11 +122,8 @@ inline void LOCAL_Vqj_MATRIX(std::vector<double>& V,
 
     for (size_t q_row = 0; q_row < Nq; q_row++)
         for (size_t j_col = 0; j_col <= N; j_col++)
-            V[q_row * (N + 1) + j_col] = l_j(j_col,
-                                             N,
-                                             zeta_barycentric,
-                                             w_barycentric,
-                                             zeta_quadrature[q_row]);
+            V[q_row * (N + 1) + j_col] = l_j(
+                j_col, zeta_barycentric, w_barycentric, zeta_quadrature[q_row]);
 }
 
 // Differentiation Matrix Dqj = Ψ̂'j (ζ𝑞)    [ Nq x (N + 1) ]
@@ -138,40 +135,50 @@ inline void LOCAL_Dqj_MATRIX(std::vector<double>& D,
 {
     std::vector<double> w_barycentric, zeta_barycentric;
     std::vector<double> w_quadrature, zeta_quadrature;
-    
+
     if (basis == "GL")
-        compute_GL_quadrature_weights_and_roots(N + 1, w_barycentric, zeta_barycentric);
+        compute_GL_quadrature_weights_and_roots(
+            N + 1, w_barycentric, zeta_barycentric);
     if (basis == "GLL")
-        compute_GLL_quadrature_weights_and_roots(N + 1, w_barycentric, zeta_barycentric);
+        compute_GLL_quadrature_weights_and_roots(
+            N + 1, w_barycentric, zeta_barycentric);
     if (quadrature == "GL")
-        compute_GL_quadrature_weights_and_roots(Nq, w_quadrature, zeta_quadrature);
+        compute_GL_quadrature_weights_and_roots(
+            Nq, w_quadrature, zeta_quadrature);
     if (quadrature == "GLL")
-        compute_GLL_quadrature_weights_and_roots(Nq, w_quadrature, zeta_quadrature);
+        compute_GLL_quadrature_weights_and_roots(
+            Nq, w_quadrature, zeta_quadrature);
 
     w_barycentric.clear();
-    compute_weights_for_barycentric_lagrange_polynomial(zeta_barycentric, w_barycentric);
+    compute_weights_for_barycentric_lagrange_polynomial(zeta_barycentric,
+                                                        w_barycentric);
 
     // 0 <= q < Nq ==> Nq terms for quadrature index
     // 0 <= j <= N ==> N + 1 terms for test function index
 
     D.resize(Nq * (N + 1)); // Nq x (N + 1)
 
+    // Can zero be treated as a nonsense value?
     for (size_t q_row = 0; q_row < Nq; q_row++)
         for (size_t j_col = 0; j_col <= N; j_col++)
             D[q_row * (N + 1) + j_col] = 0.0;
 
     for (size_t q_row = 0; q_row < Nq; q_row++)
         for (size_t j_col = 0; j_col <= N; j_col++)
-            D[q_row * (N + 1) + j_col] = ;
+            D[q_row * (N + 1) + j_col] =
+                l_j_prime(j_col,
+                          zeta_barycentric,
+                          w_barycentric,
+                          zeta_quadrature[q_row]);
 }
 
-    // R_{mq} = w_q * Ψ̂_m (ζ_q);    0<=m<=N  0<=q<=Nq
-    // R_{mq} = matmul(V_{qj}^T , w_q)    [w_j = column vector of weights]
-    inline void LOCAL_Rmq_MATRIX(std::vector<double>& R,
-                                 const size_t N,
-                                 const size_t Nq,
-                                 const std::string& basis,
-                                 const std::string& quadrature)
+// R_{mq} = w_q * Ψ̂_m (ζ_q);    0<=m<=N  0<=q<=Nq
+// R_{mq} = matmul(V_{qj}^T , w_q)    [w_j = column vector of weights]
+inline void LOCAL_Rmq_MATRIX(std::vector<double>& R,
+                             const size_t N,
+                             const size_t Nq,
+                             const std::string& basis,
+                             const std::string& quadrature)
 {
     std::vector<double> w_barycentric, zeta_barycentric;
     std::vector<double> w_quadrature, zeta_quadrature;
@@ -209,7 +216,6 @@ inline void LOCAL_Dqj_MATRIX(std::vector<double>& D,
         for (size_t q_col = 0; q_col < Nq; q_col++)
             R[m_row * Nq + q_col] =
                 w_quadrature[q_col] * l_j(m_row,
-                                          N,
                                           zeta_barycentric,
                                           w_barycentric,
                                           zeta_quadrature[q_col]);
