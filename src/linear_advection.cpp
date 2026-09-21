@@ -9,6 +9,7 @@
 #include "local_matrix_assembly.hpp"
 
 // Problem specific
+constexpr double PI = 3.141592653589793238462643383279502884;
 constexpr double T0 = 0.0;
 constexpr double T = PI;
 // [PI, 10 * PI, 100 * PI, 1000 * PI, 2000 * PI]

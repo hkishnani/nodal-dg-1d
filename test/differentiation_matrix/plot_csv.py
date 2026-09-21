@@ -110,7 +110,7 @@ def process_single_csv(args):
         title = filepath.stem.replace("Dqj_matrix_", "").replace("_", " ")
         matrix_ax.set_title(f"Dqj Matrix: {title}", fontsize=10, pad=10)
         matrix_ax.set_xlabel("Basis Index (j)")
-        matrix_ax.set_ylabel("Basis Index (i)")
+        matrix_ax.set_ylabel("quadrature node Index (q)")
 
         # Plot all Lagrange basis polynomials associated with this Dqj matrix.
         for basis_index, group in basis_df.groupby("j", sort=True):

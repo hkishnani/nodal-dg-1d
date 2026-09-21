@@ -21,4 +21,6 @@ add_executable(module_test_basis_function src/module_test_basis_function.cpp)
 
 add_executable(module_test_vandermonde_matrix src/module_test_vandermonde_matrix.cpp)
 
+add_executable(module_test_differentiation_matrix src/module_test_differentiation_matrix.cpp)
+
 add_executable(module_test_Rmq_matrix src/module_test_Rmq_matrix.cpp)

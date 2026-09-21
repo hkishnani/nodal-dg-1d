@@ -158,7 +158,7 @@ inline void LOCAL_Dqj_MATRIX(std::vector<double>& D,
 
     D.resize(Nq * (N + 1)); // Nq x (N + 1)
 
-    // Can zero be treated as a nonsense value?
+    // Can zero be treated as a nonsense value? ==> no!
     for (size_t q_row = 0; q_row < Nq; q_row++)
         for (size_t j_col = 0; j_col <= N; j_col++)
             D[q_row * (N + 1) + j_col] = 0.0;
