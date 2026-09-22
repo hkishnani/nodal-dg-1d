@@ -24,3 +24,5 @@ add_executable(module_test_vandermonde_matrix src/module_test_vandermonde_matrix
 add_executable(module_test_differentiation_matrix src/module_test_differentiation_matrix.cpp)
 
 add_executable(module_test_Rmq_matrix src/module_test_Rmq_matrix.cpp)
+
+add_executable(module_test_stiffness_matrix src/module_test_stiffness_matrix.cpp)

@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <stdexcept>
+#include <eigen3/Eigen/Dense>
 // #include <iostream>
 
 // Matrix-Vector Product-> A [m rows n columns] x[n rows 1 column]
@@ -67,8 +68,6 @@ inline void ATx(const size_t m,
             b[i] += A[j * n + i] * x[j];
     }
 }
-
-// inline void matsub(const size_t m, const )
 
 #endif // LIN_ALG_HPP
 
