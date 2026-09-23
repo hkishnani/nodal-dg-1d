@@ -26,3 +26,5 @@ add_executable(module_test_differentiation_matrix src/module_test_differentiatio
 add_executable(module_test_Rmq_matrix src/module_test_Rmq_matrix.cpp)
 
 add_executable(module_test_stiffness_matrix src/module_test_stiffness_matrix.cpp)
+
+add_executable(module_test_L2_projection src/module_test_L2_projection.cpp)

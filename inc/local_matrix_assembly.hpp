@@ -84,6 +84,7 @@ inline void LOCAL_MASS_MATRIX(std::vector<double>& M,
 }
 
 // Vandermonde matrix   --> [ Nq x (N + 1) ]
+// Vandermonde Matrix [ Nq x (N + 1) ] ==> V_qm = { Ψ̂m (ζ𝑞) }
 inline void LOCAL_Vqj_MATRIX(std::vector<double>& V,
                              const size_t Nq,
                              const size_t N,

@@ -32,7 +32,7 @@ inline void linspace_eta_vector(const double x0,
     eta.resize(N);
     if (N == 1)
     {
-        eta[0] = 0.0;
+        eta[0] = (x0 + xL) * 0.5;
         return;
     }
 
@@ -169,9 +169,9 @@ inline double l_j_prime(const size_t j,
 // N = dim(p(eta))
 inline double
 evaluate_interpolated_function_value(const size_t N,
-                                     const std::vector<double>& ZETA,
-                                     const std::vector<double>& w,
-                                     const std::vector<double>& f,
+                                     const std::vector<double>& ZETA_barycentric,
+                                     const std::vector<double>& w_barycentric,
+                                     const std::vector<double>& f_hat,
                                      const double eta)
 {
     double num = 0.0, den = 0.0, t = 0.0;
@@ -180,11 +180,11 @@ evaluate_interpolated_function_value(const size_t N,
     // for p(eta) of degree n-1, we need n-1 basis functions hence
     for (size_t j = 0; j <= N; ++j)
     {
-        if (fabs(eta - ZETA[j]) < eps)
-            return f[j];
+        if (fabs(eta - ZETA_barycentric[j]) < eps)
+            return f_hat[j];
 
-        t = (w[j] / (eta - ZETA[j]));
-        num += t * f[j];
+        t = (w_barycentric[j] / (eta - ZETA_barycentric[j]));
+        num += t * f_hat[j];
         den += t;
     }
 
