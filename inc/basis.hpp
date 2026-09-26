@@ -30,6 +30,7 @@ inline void linspace_eta_vector(const double x0,
                                 std::vector<double>& eta)
 {
     eta.resize(N);
+    eta.clear();
     if (N == 1)
     {
         eta[0] = (x0 + xL) * 0.5;

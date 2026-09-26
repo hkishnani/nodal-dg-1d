@@ -1,8 +1,8 @@
 # Ignore the entire build directory (compiled binaries, object files, cache)
-build/
+# build/
 
 # Ignore all generated CSV files anywhere in the project
-*.csv
+# *.csv
 
 # Ensure compile_commands.json in the root directory is kept
-!/compile_commands.json
+# !/compile_commands.json

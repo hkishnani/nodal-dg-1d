@@ -1,0 +1,11 @@
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/linear_advection.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_mass_matrix.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_quadrature_weights_and_abscissae.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_basis_function.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_vandermonde_matrix.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_differentiation_matrix.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_Rmq_matrix.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_stiffness_matrix.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/module_test_L2_projection.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/edit_cache.dir
+/home/himanshu/himanshu/nodal-dg-1d/build/CMakeFiles/rebuild_cache.dir

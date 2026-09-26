@@ -1,0 +1,132 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "nodal_dg_1d",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "linear_advection::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-linear_advection-Debug-65c30dddbdb3fcaca271.json",
+					"name" : "linear_advection",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_L2_projection::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_L2_projection-Debug-5094a0ea0fa109e8a6dd.json",
+					"name" : "module_test_L2_projection",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_Rmq_matrix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_Rmq_matrix-Debug-35832fa766725e8647ae.json",
+					"name" : "module_test_Rmq_matrix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_basis_function::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_basis_function-Debug-cfc233061ff1bd8ccb11.json",
+					"name" : "module_test_basis_function",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_differentiation_matrix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_differentiation_matrix-Debug-3f1fbffb3cfa49b69620.json",
+					"name" : "module_test_differentiation_matrix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_mass_matrix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_mass_matrix-Debug-90c83bbb84280b1fb921.json",
+					"name" : "module_test_mass_matrix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_quadrature_weights_and_abscissae::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_quadrature_weights_and_abscissae-Debug-0e13b66798c8afdcf003.json",
+					"name" : "module_test_quadrature_weights_and_abscissae",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_stiffness_matrix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_stiffness_matrix-Debug-f8bf9c7034de1a2291ba.json",
+					"name" : "module_test_stiffness_matrix",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_test_vandermonde_matrix::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_test_vandermonde_matrix-Debug-2b69fe41b427b41e7b1a.json",
+					"name" : "module_test_vandermonde_matrix",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/himanshu/himanshu/nodal-dg-1d/build",
+		"source" : "/home/himanshu/himanshu/nodal-dg-1d"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

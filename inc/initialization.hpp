@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/src/Core/Matrix.h>
 #include <string>
 #include <type_traits>
 #include <vector>
@@ -69,7 +70,7 @@ inline void l2_projection(std::vector<double>& u_hat,
     // =========================================================
 
     // u0(ZETA_q)
-    Eigen::VectorXd U0_q(0, ZETA_q.size());
+    Eigen::VectorXd U0_q = Eigen::VectorXd::Zero(ZETA_q.size());
     double xq = xl;
     for (size_t q = 0; q < Nq; q++)
     {
