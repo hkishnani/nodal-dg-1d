@@ -1,1 +1,1 @@
-/usr/bin/c++ -g CMakeFiles/module_test_vandermonde_matrix.dir/src/module_test_vandermonde_matrix.cpp.o -o module_test_vandermonde_matrix 
+/usr/bin/c++ CMakeFiles/module_test_vandermonde_matrix.dir/src/module_test_vandermonde_matrix.cpp.o -o module_test_vandermonde_matrix 

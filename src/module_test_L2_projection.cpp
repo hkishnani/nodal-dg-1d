@@ -9,6 +9,7 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <format>
 #define N_SAMPLE 50
 
 constexpr double PI = 3.141592653589793238462643383279502884;
@@ -23,7 +24,7 @@ const double X_L = 2 * PI;
 // wavenumber ==> lambda
 constexpr inline double U0_func(double x)
 {
-    double lambda = 2.0 * PI;
+    double lambda = 2.0;
     return sin(x * 2.0 * PI / lambda);
 }
 
@@ -115,7 +116,7 @@ int main(int argc, char* argv[])
         error_l2_norm = error_l2_norm * (delta_x / 2.0);
     }
     std::string err_line =
-        std::to_string(K) + "," + std::to_string(N) + "," + std::to_string(error_l2_norm);
+        std::to_string(K) + "," + std::to_string(N) + "," + std::format("{:.15f}", error_l2_norm);
 
     write_line_to_file(L2_projection_folder + "l2_norm_vs_h.csv",
                        err_line);
