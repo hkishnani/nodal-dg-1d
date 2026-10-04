@@ -4,11 +4,11 @@
 cd "$(dirname "$0")"
 
 # Define the root of your project and the build folder path
-PROJECT_ROOT="/home/himanshu/himanshu/nodal-dg-1d"
+PROJECT_ROOT="../../.."
 BUILD_DIR="$PROJECT_ROOT/build"
 
 # 2. Clean up any previous partial builds
-rm -rf "$BUILD_DIR"
+#rm -rf "$BUILD_DIR"
 
 # 3. Configure and build CMake by explicitly targeting the project root
 cmake -S "$PROJECT_ROOT" -B "$BUILD_DIR"

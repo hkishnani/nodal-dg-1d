@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/himanshu/himanshu/nodal-dg-1d/inc
+CXX_INCLUDES = -I/home/himanshu/himanshu/PhD/nodal-dg-1d/inc
 
 CXX_FLAGS = -std=gnu++20
 

@@ -1,5 +1,5 @@
 CMakeFiles/module_test_quadrature_weights_and_abscissae.dir/src/module_test_quadrature_weights_and_abscissae.cpp.o: \
- /home/himanshu/himanshu/nodal-dg-1d/src/module_test_quadrature_weights_and_abscissae.cpp \
+ /home/himanshu/himanshu/PhD/nodal-dg-1d/src/module_test_quadrature_weights_and_abscissae.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/13/iostream \
  /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
@@ -181,9 +181,9 @@ CMakeFiles/module_test_quadrature_weights_and_abscissae.dir/src/module_test_quad
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /home/himanshu/himanshu/nodal-dg-1d/inc/quadrature.hpp \
- /home/himanshu/himanshu/nodal-dg-1d/inc/basis.hpp \
- /home/himanshu/himanshu/nodal-dg-1d/inc/lin_alg.hpp \
+ /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/quadrature.hpp \
+ /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/basis.hpp \
+ /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/lin_alg.hpp \
  /usr/include/eigen3/Eigen/Dense /usr/include/eigen3/Eigen/Core \
  /usr/include/eigen3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /usr/include/eigen3/Eigen/src/Core/util/Macros.h \
@@ -423,7 +423,7 @@ CMakeFiles/module_test_quadrature_weights_and_abscissae.dir/src/module_test_quad
  /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
- /home/himanshu/himanshu/nodal-dg-1d/inc/file_handling.hpp \
+ /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/file_handling.hpp \
  /usr/include/c++/13/fstream /usr/include/c++/13/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
