@@ -1,7 +1,7 @@
 
 Found 96 CSV files.
 Reference: K128_N11.csv
-Using 8 parallel workers.
+Using 128 parallel workers.
 
 Saved: K1_N0.svg
 Saved: K1_N1.svg

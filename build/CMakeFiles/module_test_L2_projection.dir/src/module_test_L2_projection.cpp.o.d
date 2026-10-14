@@ -1,7 +1,7 @@
 CMakeFiles/module_test_L2_projection.dir/src/module_test_L2_projection.cpp.o: \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/src/module_test_L2_projection.cpp \
+ /home/himanshu/himanshu/nodal-dg-1d/src/module_test_L2_projection.cpp \
  /usr/include/stdc-predef.h \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/basis.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/basis.hpp \
  /usr/include/c++/13/cmath /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -115,7 +115,7 @@ CMakeFiles/module_test_L2_projection.dir/src/module_test_L2_projection.cpp.o: \
  /usr/include/c++/13/bits/ranges_util.h \
  /usr/include/c++/13/bits/ranges_base.h \
  /usr/include/c++/13/bits/max_size_type.h /usr/include/c++/13/numbers \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/lin_alg.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/lin_alg.hpp \
  /usr/include/c++/13/stdexcept /usr/include/c++/13/exception \
  /usr/include/c++/13/bits/exception_ptr.h \
  /usr/include/c++/13/bits/cxxabi_init_exception.h \
@@ -425,7 +425,7 @@ CMakeFiles/module_test_L2_projection.dir/src/module_test_L2_projection.cpp.o: \
  /usr/include/eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/RealQZ.h \
  /usr/include/eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/file_handling.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/file_handling.hpp \
  /usr/include/c++/13/fstream /usr/include/c++/13/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
@@ -437,12 +437,12 @@ CMakeFiles/module_test_L2_projection.dir/src/module_test_L2_projection.cpp.o: \
  /usr/include/libintl.h /usr/include/c++/13/bits/locale_facets_nonio.tcc \
  /usr/include/c++/13/bits/locale_conv.h \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/iostream \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/initialization.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/initialization.hpp \
  /usr/include/eigen3/Eigen/src/Core/Matrix.h \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/quadrature.hpp \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/local_matrix_assembly.hpp \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/basis.hpp \
- /home/himanshu/himanshu/PhD/nodal-dg-1d/inc/quadrature.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/quadrature.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/local_matrix_assembly.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/basis.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/quadrature.hpp \
  /usr/include/c++/13/format /usr/include/c++/13/charconv \
  /usr/include/c++/13/optional /usr/include/c++/13/span \
  /usr/include/c++/13/variant /usr/include/c++/13/bits/parse_numbers.h \
