@@ -461,4 +461,5 @@ CMakeFiles/linear_advection_steady_state.dir/src/linear_advection_steady_state.c
  /home/himanshu/himanshu/nodal-dg-1d/inc/quadrature.hpp \
  /home/himanshu/himanshu/nodal-dg-1d/inc/local_matrix_assembly.hpp \
  /home/himanshu/himanshu/nodal-dg-1d/inc/basis.hpp \
- /home/himanshu/himanshu/nodal-dg-1d/inc/local_matrix_assembly.hpp
+ /home/himanshu/himanshu/nodal-dg-1d/inc/local_matrix_assembly.hpp \
+ /home/himanshu/himanshu/nodal-dg-1d/inc/numerical_flux.hpp

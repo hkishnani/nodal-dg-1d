@@ -34,8 +34,7 @@ void interface_flux(std::vector<double>& F_vector,
                     const double delta_x,
                     const double delta_t,
                     const double a,
-                    const std::string& flux_name
-                    )
+                    const std::string& flux_name)
 {
     F_fvector.clear();
     F_fvector.resize(zeta_barycentric.size());
