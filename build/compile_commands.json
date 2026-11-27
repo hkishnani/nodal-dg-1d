@@ -1,9 +1,9 @@
 [
 {
   "directory": "/home/himanshu/himanshu/nodal-dg-1d/build",
-  "command": "/usr/bin/c++  -I/home/himanshu/himanshu/nodal-dg-1d/inc -std=gnu++20 -o CMakeFiles/linear_advection.dir/src/linear_advection.cpp.o -c /home/himanshu/himanshu/nodal-dg-1d/src/linear_advection.cpp",
-  "file": "/home/himanshu/himanshu/nodal-dg-1d/src/linear_advection.cpp",
-  "output": "CMakeFiles/linear_advection.dir/src/linear_advection.cpp.o"
+  "command": "/usr/bin/c++  -I/home/himanshu/himanshu/nodal-dg-1d/inc -std=gnu++20 -o CMakeFiles/linear_advection_steady_state.dir/src/linear_advection_steady_state.cpp.o -c /home/himanshu/himanshu/nodal-dg-1d/src/linear_advection_steady_state.cpp",
+  "file": "/home/himanshu/himanshu/nodal-dg-1d/src/linear_advection_steady_state.cpp",
+  "output": "CMakeFiles/linear_advection_steady_state.dir/src/linear_advection_steady_state.cpp.o"
 },
 {
   "directory": "/home/himanshu/himanshu/nodal-dg-1d/build",

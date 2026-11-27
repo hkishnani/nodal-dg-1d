@@ -11,7 +11,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories(inc)
 
 # Define executables and their source files
-add_executable(linear_advection src/linear_advection.cpp)
+add_executable(linear_advection_steady_state src/linear_advection_steady_state.cpp)
 
 add_executable(module_test_mass_matrix src/module_test_mass_matrix.cpp)
 

@@ -153,14 +153,14 @@ inline double l_j_prime(const size_t j,
     // if eta is one of the Barycentric coordinate
     for (size_t i = 0; i <= N; i++)
         if (fabs(eta - ZETA_barycentric[i]) < eps)
-            return l_j_prime_at_zeta_i(
-                j, i, ZETA_barycentric, w_barycentric);
+            return l_j_prime_at_zeta_i(j, i, ZETA_barycentric, w_barycentric);
 
     double l_prime_val = l_prime(ZETA_barycentric, eta);
 
     double l_j_val = l_j(j, ZETA_barycentric, w_barycentric, eta);
 
-    double val = (w_barycentric[j] * l_prime_val - l_j_val) / (eta - ZETA_barycentric[j]);
+    double val = (w_barycentric[j] * l_prime_val - l_j_val) /
+                 (eta - ZETA_barycentric[j]);
 
     return val;
 }
@@ -168,12 +168,12 @@ inline double l_j_prime(const size_t j,
 // ==========================================================
 // eval. Barycentric Lagrange interpolated function p(eta) from f:[-1, +1] -> R
 // N = dim(p(eta))
-inline double
-evaluate_interpolated_function_value(const size_t N,
-                                     const std::vector<double>& ZETA_barycentric,
-                                     const std::vector<double>& w_barycentric,
-                                     const std::vector<double>& f_hat,
-                                     const double eta)
+inline double evaluate_interpolated_function_value(
+    const size_t N,
+    const std::vector<double>& ZETA_barycentric,
+    const std::vector<double>& w_barycentric,
+    const std::vector<double>& f_hat,
+    const double eta)
 {
     double num = 0.0, den = 0.0, t = 0.0;
     const double eps = std::numeric_limits<double>::epsilon();

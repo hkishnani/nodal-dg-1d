@@ -40,7 +40,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/linear_advection.dir/DependInfo.cmake"
+  "CMakeFiles/linear_advection_steady_state.dir/DependInfo.cmake"
   "CMakeFiles/module_test_mass_matrix.dir/DependInfo.cmake"
   "CMakeFiles/module_test_quadrature_weights_and_abscissae.dir/DependInfo.cmake"
   "CMakeFiles/module_test_basis_function.dir/DependInfo.cmake"

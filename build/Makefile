@@ -117,17 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named linear_advection
+# Target rules for targets named linear_advection_steady_state
 
 # Build rule for target.
-linear_advection: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 linear_advection
-.PHONY : linear_advection
+linear_advection_steady_state: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 linear_advection_steady_state
+.PHONY : linear_advection_steady_state
 
 # fast build rule for target.
-linear_advection/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection.dir/build.make CMakeFiles/linear_advection.dir/build
-.PHONY : linear_advection/fast
+linear_advection_steady_state/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection_steady_state.dir/build.make CMakeFiles/linear_advection_steady_state.dir/build
+.PHONY : linear_advection_steady_state/fast
 
 #=============================================================================
 # Target rules for targets named module_test_mass_matrix
@@ -233,29 +233,29 @@ module_test_L2_projection/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/module_test_L2_projection.dir/build.make CMakeFiles/module_test_L2_projection.dir/build
 .PHONY : module_test_L2_projection/fast
 
-src/linear_advection.o: src/linear_advection.cpp.o
-.PHONY : src/linear_advection.o
+src/linear_advection_steady_state.o: src/linear_advection_steady_state.cpp.o
+.PHONY : src/linear_advection_steady_state.o
 
 # target to build an object file
-src/linear_advection.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection.dir/build.make CMakeFiles/linear_advection.dir/src/linear_advection.cpp.o
-.PHONY : src/linear_advection.cpp.o
+src/linear_advection_steady_state.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection_steady_state.dir/build.make CMakeFiles/linear_advection_steady_state.dir/src/linear_advection_steady_state.cpp.o
+.PHONY : src/linear_advection_steady_state.cpp.o
 
-src/linear_advection.i: src/linear_advection.cpp.i
-.PHONY : src/linear_advection.i
+src/linear_advection_steady_state.i: src/linear_advection_steady_state.cpp.i
+.PHONY : src/linear_advection_steady_state.i
 
 # target to preprocess a source file
-src/linear_advection.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection.dir/build.make CMakeFiles/linear_advection.dir/src/linear_advection.cpp.i
-.PHONY : src/linear_advection.cpp.i
+src/linear_advection_steady_state.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection_steady_state.dir/build.make CMakeFiles/linear_advection_steady_state.dir/src/linear_advection_steady_state.cpp.i
+.PHONY : src/linear_advection_steady_state.cpp.i
 
-src/linear_advection.s: src/linear_advection.cpp.s
-.PHONY : src/linear_advection.s
+src/linear_advection_steady_state.s: src/linear_advection_steady_state.cpp.s
+.PHONY : src/linear_advection_steady_state.s
 
 # target to generate assembly for a file
-src/linear_advection.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection.dir/build.make CMakeFiles/linear_advection.dir/src/linear_advection.cpp.s
-.PHONY : src/linear_advection.cpp.s
+src/linear_advection_steady_state.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/linear_advection_steady_state.dir/build.make CMakeFiles/linear_advection_steady_state.dir/src/linear_advection_steady_state.cpp.s
+.PHONY : src/linear_advection_steady_state.cpp.s
 
 src/module_test_L2_projection.o: src/module_test_L2_projection.cpp.o
 .PHONY : src/module_test_L2_projection.o
@@ -457,7 +457,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... linear_advection"
+	@echo "... linear_advection_steady_state"
 	@echo "... module_test_L2_projection"
 	@echo "... module_test_Rmq_matrix"
 	@echo "... module_test_basis_function"
@@ -466,9 +466,9 @@ help:
 	@echo "... module_test_quadrature_weights_and_abscissae"
 	@echo "... module_test_stiffness_matrix"
 	@echo "... module_test_vandermonde_matrix"
-	@echo "... src/linear_advection.o"
-	@echo "... src/linear_advection.i"
-	@echo "... src/linear_advection.s"
+	@echo "... src/linear_advection_steady_state.o"
+	@echo "... src/linear_advection_steady_state.i"
+	@echo "... src/linear_advection_steady_state.s"
 	@echo "... src/module_test_L2_projection.o"
 	@echo "... src/module_test_L2_projection.i"
 	@echo "... src/module_test_L2_projection.s"
