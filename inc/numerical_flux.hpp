@@ -6,21 +6,12 @@
 #include <vector>
 
 // f(uh) = a * uh for linear advection flux
-double upwind_flux(const double uh_L, const double uh_R, const double a, auto f)
+// lambda = std::fabs(a)    --> upwind_flux
+// lambda = std::fabs(delta_x / delta_t)    --> lax_friedrich_flux
+double
+upwind_flux(const double uh_L, const double uh_R, const double lambda, auto f)
 {
-    return 0.5 * (f(uh_L) + f(uh_R)) - 0.5 * std::fabs(a) * (uh_R - uh_L);
-}
-
-double lax_friedrich_flux(const double uh_L,
-                          const double uh_R,
-                          const double delta_x,
-                          const double delta_t,
-                          auto f)
-{
-    return 0.5 * (f(uh_L) + f(uh_R)) -
-           0.5 * std::fabs(delta_x / delta_t) * (uh_R - uh_L);
-    // for steady state, we can choose delta_t = delta_x / a
-    // for steady state, this is equal to upwind_flux
+    return 0.5 * (f(uh_L) + f(uh_R)) - 0.5 * lambda * (uh_R - uh_L);
 }
 
 // interface flux at f face in F_vector
@@ -31,9 +22,7 @@ void interface_flux(std::vector<double>& F_vector,
                     const std::vector<double>& w_barycentric,
                     const std::vector<double>& zeta_barycentric,
                     const std::string& basis,
-                    const double delta_x,
-                    const double delta_t,
-                    const double a,
+                    const double lambda,
                     const std::string& flux_name)
 {
     F_fvector.clear();

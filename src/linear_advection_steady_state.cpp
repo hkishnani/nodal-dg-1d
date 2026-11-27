@@ -46,6 +46,7 @@ constexpr inline double g_RHS(double x)
     return a * l * cos(l * x);
 }
 
+// POST PROCESS FOLDER
 const std::string steady_state_linear_advection_folder =
     std::filesystem::current_path().string();
 
@@ -96,9 +97,9 @@ int main(int argc, char* argv[])
     linspace_eta_vector(X_0, X_L, K + 1, X);
 
     // ELEMENTWISE COEFFICIENT VECTOR
-    std::vector<double> u_hat(N+1, 0.0);
+    std::vector<double> u_hat(N + 1, 0.0);
 
-    const double h = (X_L - X_0) / static_cast<double>(K);
+    // const double h = (X_L - X_0) / static_cast<double>(K);
 
     // Writing error and its L2 norm
     size_t Nq_L2 = 18;
@@ -144,17 +145,17 @@ int main(int argc, char* argv[])
             double zeta_q = zeta_quadrature[nq],
                    uh_q = evaluate_interpolated_function_value(
                        N, zeta_barycentric, w_barycentric, u_hat, zeta_q),
-                   xq = zeta_to_x(zeta_q, xl, xr),
-                   u_q = U_analytic(xq);
+                   xq = zeta_to_x(zeta_q, xl, xr), u_q = U_analytic(xq);
 
             error_l2_norm_i += w_quadrature[nq] * (u_q - uh_q) * (u_q - uh_q);
         }
         error_l2_norm += error_l2_norm_i * (delta_x / 2.0);
     }
+
     std::string err_line = std::to_string(K) + "," + std::to_string(N) + "," +
                            std::format("{:.15f}", error_l2_norm);
-
     write_line_to_file(
         steady_state_linear_advection_folder + "/l2_norm_vs_h.csv", err_line);
+
     return 0;
 }
